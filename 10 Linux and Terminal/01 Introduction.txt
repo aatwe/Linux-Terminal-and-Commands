@@ -1,0 +1,134 @@
+
+Topics Covered:
+Intro,Terminal Emulator,What is shell, List commands,ls,mkdir,cd,Environment variables,Path environment variable,Bash files,zprofile,where envt var are stored
+
+
+
+
+1) terminal vs shell
+
+terminal:  emulator
+
+shell:  Interface that interprets our commands
+_____________________________________________________________________________
+2) root@277d4ce30328/#
+
+
+a)  What is root? Username of current user
+b)  What is 277d4ce30328? host name of server
+c)  What is /# : Current directory
+
+_____________________________________________________________________________
+3) 
+a) What is a git command?
+	An executable file
+for ex
+>tutorial python3		//How computer knows where this file is
+
+b) How computer knows where executable file is?
+how to check where exe file for command is?
+   -> where python3
+   -> /usr/bin/python3	//Python3 file location
+
+c) alternative to command -> write path
+ >/usr/bin/python3		//just type location of executable  
+ >python3		//both runs command / executable
+
+ex2
+>/usr/bin/igt
+>git			//verify in folder
+
+//How address is determined?
+
+
+	
+_____________________________________________________________________________
+4) How to list all current folder items
+ls
+
+5) How to change directory hirarchially up
+cd folder_name
+
+6) How to go back in folder hierarchy
+cd ..
+
+7) How to display a variable?
+  ~ echo $(git_current_branch)
+
+7)
+How to display hidden files? cat
+cat .zprofile
+____________________________________________________________________
+
+
+
+7) What is a process? Any instance of running command = process
+
+____________________________________________________________________
+8) Environment variables
+	a) What is environment variable? named values -> changes how commands / processes are executed
+
+	b) How to display path envt variable?
+		echo $PATH
+//Different paths separated by : Colon
+	/Library/Frameworks/Python.framework/Versions/3.7/bin:/Libra./Frameworks/Python.framework/Versions/3.9/bin:/opt/hombre..	
+
+	c) How path variable works?
+	When write any command -> checks path variable if executtble file we trying to fill exists
+	Checks multiple paths (separated by :)	
+
+
+ 	when type command
+
+
+	d) Use case envt variable : people store passwrods
+____________________________________________________________________
+Different shells
+a) bash
+b) zsh
+
+
+
+9) bash_profile and bash rc file
+
+How to view hidden files? File starting with dot is hidden
+Where are envt variables stored?
+~ ls -a
+
+//.zprofile  etc
+
+How to display hidden files? cat
+cat .zprofile
+
+	//System wide profile for login shells
+	things u put will override 
+
+How to check your theme?
+cat /.zshrc				
+  //ZSH_THEME = "robbyrussell
+
+What are aliases envt var?
+long commands saved as short 
+
+What is PS1 envt var?Customize special characters
+change /w %n = new line, ~h = hostname , /w = working directory  
+		
+9) How to edit this file? How to include java path? -> Edit file
+a)  ~ vi  ~/.zprofile
+
+b) PATH="/Library//Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:${PATH}"	//include here
+export PATH    						//What does this do? this will be exported and used in command prompt
+
+
+c) How to check this PATH?
+	echo $PATH
++++++++++++++++++++++++++++++++++++++++++++++++++
+Summary : Why we doint this? When installing new application / command line tools -> have to add these things'
+
+
+
+//can also use envt var as below;  //not temporary // just for this terminal instance
+a) export MY_PATH="Kunal"	
+b) echo $MY_PATH
+  Kunal
+							

@@ -1,0 +1,600 @@
+0)  how to get info about the command
+man echo
+//gives info about command
+
+1)pwd
+	//Which directory we in
+
+2) ls
+	//list file in current directory
+
+3) ls -a
+	//list hidden files
+	. = current directory 
+	.. = previous directory
+	//paths mentioned in blue color
+
+4) ls -l	//Shows user, group owner, size, date info
+
+4,1) ls -r	//shows all files //all files in files also //shows all sub directories as well
+
+5) open .	//Open all files in current directroy
+\
+
+6) cd 	//change directroy
+7) cd ..	//change into previous directory
+    cd ../Pictures  //change into previous directory Pictures
+
+8)cat	//list all content in file
+   a) cat plugin.yaml
+	//can use to add content  to Hello file
+   b) cat > Hello		//creates hello file
+My name is Kunal		//writes this to hello file
+	// > O/p My name is Kunal
+
+8.1) Concat content from 2 files and  output
+cat file.txt two.txt
+
+8.2) Concat content from 2 files and and put in 3rd file 
+
+cat file.txt two.txt > total..txt
+My name is Kunal
+I am a teacher 
+
+8) How to escape?
+Ctrl + C
+
+9) How to just print?
+echo "Hello World"
+
+
+10) how to just print inside a file
+echo "Hello World" > file.txt
+
+11)modify content of one file //smaller case to upper case -> move to new file	//redirect the output
+cat file.txt | tr a-z A-Z >  upper.txt
+
+
+12) How to chain commands
+	cat file.txt \ 
+
+13) How to create folder "test"
+mkdir test
+mkdir random/hello
+
+
+14) how to create folder in between
+mkdir -p random/middle/hello
+
+15) How to create a file?
+touch newfile.txt
+touch test/newfile.txt
+
+16) How to open a directory?
+open Abhilash		//Opens abhilash directory
+open .			//Opens current directory
+
+17) How to copy a file
+cp file.txt copy_file.txt	//Copies content also	//copies subtree also
+
+//use with tags? man cp
+cp -R test_random
+
+18) How to move files/ rename files
+mv names.txt random	//moves names.txt to random directory
+mv file.txt newName .txt	 //file.txt renamed to newName.txt
+
+19) How to move and rename together?
+echo I am in names.txt > names.txt
+cat names.txt	
+mv names.txt ../newNames.txt
+
+ex move renamedTest from random to current directory
+mv random/renamedTest .
+
+20) How to remove file?
+	rm copy_file.txt
+
+21) How to remove all subdirectries
+rm -R renamedTest	//no error
+rm renamedTest	//error	//since command is for files, we have folder
+
+rm -rf renamedTest	//forecful delete //sometimes file open, cant delete , this will delete
+
+22) Super user do:  Execute command as another user
+ex sudo echo Hello world
+> asks for password -> Enter password then command executes	
+
+21) Check out ssystem disk space
+df
+df -m  //show in mb
+df -hg
+
+22) how to display disk usage statistics
+ du -l
+ du -h
+
+23) display only first few data
+head total.txt
+head -n 4 total.txt	//displays first 4
+
+24) display last few
+tail -n 2 total.txt
+
+
+25)compare content of 2 files line by line -> output lines that dont match
+diff total.txt two.txt
+//usecase: source code
+
+26)How to locate files
+locate "*txt"	//locate all files with.txt in them  //returns path of each
+
+27) find .  //finds all files and displays filenames
+
+28) find particular file type
+find . -type d		//find only directories/folders
+find . -type f		//find only files
+
+
+28.1) How to find files only in current directory?
+find . -type f max-depth 1	//wont find files recursively
+
+
+29) find particular type of files, with a particular name
+find . -type f -name"two.txt""  //case sensitive	 
+find . -type f -iname"two.txt""  //not case sensitive
+
+
+30) Find all files modified less than 20 min ago
+find . -type f -mmin -20	//less than 20 min ago
+find . -type f -mmin +15	//more than 15  min ago
+find . -type f -mmin -20 +15     //combine	
+
+find . -type f -mtime +15	//	
+
+31) Find files by size
+find . -size+1k
+
+
+32) find all empty files
+find . -empty
+
+
+33) find file by permissions
+find . -perm777	//find all files that have read write and execute permissions
+
+
++++++++++++++++++++++
+What types of permissions?
+1) read 2) Write 3) Execute
+       r             w            x
+       4	   2 	 1
+
+rx= 4+1 = 5
+rwx = 4+1+2 = 7
+
+34) How to see what permissions a file has
+ls -l upper.txt
+-rw-r--r--		
+People 	Group	Others
+    r/w	   r	      r
+35) how to change permissions?
+chmod u=rwx, g=rx, o=r upper.txt	//x= execute
+People 	Group	Others		//sudo is super user group  //
+   rwx	   rx                  r
+
+
+change with no.?
+chmod 777 upper.txt
+
+36) How to check my user?
+whoami
+
+37) How to give root user permission to upper.txt?
+	sudo chown root upper.txt
+
+if we try to access
+	cat upper.txt	//Permission will be denied
+	sudo cat upper.txt	//As a root user now i can access	/=
+
+
+38) How to delete multiple files
+find ,-type f -name "*.txt"
+a)
+./two,txt
+./upper.txt
+./newNames.txt
+..
+
+-----------------------------
+b) 
+find ,-type f -name "*.txt" -exec rm -rf {} +	
+	//all files go into {}
+	// rm -rf command on all files
+
+
+39) How to search for data inside files		grep : Global regular expression print  //Allows to search text
+touch names.txt
+touch surnames.txt
+touch companies.txt
+
+vi names.txt
+Abhilash Atwe
+Abhishek
+Aditya
+Alok
+
+vi companies.txt
+lens
+Google
+Amazon
+Twilio
+
+grep -V
+
+//BSD : Mac uses BSD grep
+//GNU: Linus uses GNU grep
+
+--> grep "Abhishek" names.txt			//How to search just the input word
+//O/p: Abhishek
+
+
+--> grep -w "Abhilash" names.txt		//How to search complete word 
+Abhilash Atwe
+
+
+--> grep -w "Abhilash Atwe" names.txt	//-w searches for word
+>Abhilash Atwe
+--> grep -w "Abhilash" names.txt
+>Abhilash Atwe
+--> grep -w "Abhilash Atw" names.txt
+>not found
+--> grep "Abhilash Atw" names.txt
+>Abhilash Atwe
+"
+============================
+Case sensitivity
+//grep is case sensitive
+grep "abhilash" names.txt	
+>no output
+
+//How to make grep not case sensitive?
+grep -i "abhilash" names.txt
+>Abhilash Atwe
+  
+============================
+Line Number
+grep -n "Abhilash" names.txt
+1:Abhilash Atwe
+
+
+============================
+Combine w , i , n tags  //word, case sensitivity, line no.
+grep -win "aditya"
+
+3: Aditya
+
+============================================
+How to see lines before the match
+grep -B 3 "Alok"
+
+Abhilash Atwe
+Abhishek
+Aditya
+==============================================
+How to search in current directory, in all files for Alok 
+grep -win "Alok" ./*..txt
+./names.txt.4.Rahul
+
+
+How to search recursively? Will search inside folders also
+grep -rwin "Alok" ./*..txt
+
+
+Which files contain matches
+grep -wirl "Alok"
+>./random/names.txt
+
+
+count of instances
+grep -wirc "Kunal"
+>/.DS_Store:0
+./surnames.txt:0
+./random/middle/.DS_Store:0
+./random/names.txt: 1
+./random/.DS_Store:0
+./random/hello.DS_Store:0
+./companies.txt: 0 
+
+
+
+40) How to find history of commands used	
+history
+
+
+41) How to find history of particular commands? Pipe command
+history | grep "ls"
+
+
+42) regx
+a) Find all words
+grep -p "/w" companies.txt
+Civo
+Community Classroom
+Datree
+Teleport
+Lens
+Google
+Amazon
+Battlesnake
+Twilio
+Elastic
+
+
+b) Search a number : 3digit dash 3digit dash 4digit
+ greg -p "\d{3}-\d{3}-\d{4}"
+
+++++++++++++++++++++++++++++++++++
+43) Aliases
+alias
+>md = 'mkdir -p'
+>rd= rmdir
+etc
+
+type alias and find more
++++++++++++++++++++++++++++++++++++++
+44) Where are these? 
+cat /etc/zprofile  //for zshell
+
+  cat ~/ .zsh
+  cat ~/.zshrc
+
+cat rcnbash_profile
+
+
+45) How to add alias for a command? Add in zprofile
+	if instead of zprofile we just do alias something= " " it will work only for that session
+	zprofille is permenent
+
+vi ~//zprofile  
+//inside zprofile we can put
+alias gpom="git push origin main"
+
+now if we type
+gpom //Command will work
+
+
+
+46) how to move to starting of line? Ctrl + A
+		ending	          Ctrl + E
+
+
+47) How to remove everything after cursor? Ctrl + U
+
+48) How to autocomplete? tab
+
+49) How to scroll thru commands? up and down keys
+
+50 How to run some no. command from history? !no._in_history
+
+51)how to run a previous particular  command? 
+ex !find
+
+52)How to search for previous command ? Ctrl + R	
+
+53) How to clear screen linux? Ctrl + L or clear
+				
+53) How to use multiple command in 1 line separate by ; , they run one by one
+	git add .:git commit -m "message";git push origin main
+
+54) Sort all file content in reverse order		//ASCII sorting differentiates upper case and lower case
+sort -r comanies.txt
+cat companies.txt	//original order
+
+55) case insenstivie sorting			//case insensiitive just sorts without caring for case
+sort -f companies.txt
+
+56) Display current jobs running + status of jobs
+What is job? process started by shell
+tutorial jobs
+
+
+57)How to connect to server
+ping google,com	//connect to server
+
+58) How to download files from internet, first download/install command if not avail
+	brew install wget
+	wget "https:....." -> downloads pdf file
+	wget  -o myfile.pdf http://.....		//saves as myfile.pdf
+
+
+
+59) What is app-get? Command line tool: hellps handle packages
+	package management system : linux/apple ? homebrew
+other tools , yum/fedora/rpm/debian  etc
+
+
+
+60) Check what processes are running -> //find pid ,CPU% etc it is taking 
+top
+
+61) How to kill/stop process?
+kill pid
+
+
+62)What if we run ubuntu
+What is Ubuntu? Linux distro		//Use case docker: if we dont have something installed, but installed on docker, can run command on docker
+a) docker run -it ubuntu
+
+b) top
+
+	//only 2 processes running here, WHY??? CONTAINER HAS NO IDEA WHAT THINGS ARE GOING ON OUTSIDE
+
+c) uname // Ubuntu uses Linux kernel // gives info about linux system
+>Linux       //in linux
+>Darwin	//in mac
+//The above are UNIX based Operating system used in Macbooks
+
+
+63) How to zip files into compressed version?
+ zip files.zip companies.txt
+zip files2.zip companies.txt file.txt
+//companies.txt, file.txt ---> files2.zip
+
+64) how to unzip files?
+tutorial unzip files2.zip
+
+
+65 
+a) How to check hostname?
+hostname
+b25b8a335ca9	//dns name
+
+
+b) how to get ip ?
+hostname -i
+172.17.0.2		//ip address of docker container
+
+]
+66) How to add a new user with password?
+useradd User
+passwd User
+
+67) how to delete the user?
+userdel Abhi
+
+
+68) OS Info
+a) uname 	//kernel
+>Linux
+
+
+b)uname -o 	//type
+>GNU/Linux
+
+c)uname -m	//architecture 
+aarch64
+
+d) uname-r	//kernel version
+5.10.25-linuxkit
+
+
+e) cat /etcos-release	//all info about OS
+
+f) How to get cpu details?
+lscpu	
+
+69)  Check free memory
+free -h
+
+70) How to check virtual memory?
+vmstat
+
+71)Print ids
+id -G
+id -g
+id -r	//real id instead of no.
+
+
+72)How to check if user exists
+ getent group User
+User:x:1001
+
+73) How to get password for user
+getent passwd User
+
+74) How to set password?
+passwd User 
+
+
+75) Find all user ids?
+id User
+> uid = 1001  ,    gid = 1001   ,    groups = 1001
+
+76) How to list all open files
+lsof
+lsof  -u kunalkushwaha //check for particular user
+ 
+77) Check domain ip
+ nslookup google.com 
+>142.250.77.142
+ can also
+ nslookup 142.250.77.142
+
+78) How to Check all ports currently listening
+netstat
+
+
+79)ifconfig
+
+80) man sed //Stream editor //Useful when we work with logs   //cut command
+
+81) man cut		//Cut selected portion of line of a file
+//Cuts  each line till 2 characters in companies.txt
+cut -c 1-2companies.txt
+Ab
+Ab
+Ad
+Al
+
+82) Connect to remote host   //networking commands
+telnet
+
+83)How to check which proceses eating how much resources
+htop
+
+
+84) Operators
+
+a) &
+ping google.com & netflix.com
+
+	//Will run a process in background , other process will also be running , child process creation	
+
+//we can run our other commands
+ps //process id
+>93725 -zsh 
+ 93534 -zsh
+ 93686   ping.google.com
+
+kill 93686	//background process will terminate
+
+b) &&	//executes only after previous command finished executing
+echo "first" && echo "second"
+echo "first" && echo "hi" ; echo "i am good"}
+
+c) ;
+
+d) ||   //command after or operator here executes only if previous fails	//like an else statement
+echo "first" || echo "second"
+>first
+echo sdfjio && echo "second"
+
+>sdfijio not found
+second
+
+
+e) |
+Sends output of first command into second command
+
+f) !
+ex: remove all files except surnames.txt
+  cd Desktop/Tutorial
+   rm -r !(surnames.txt)
+
+g) >>
+ex
+//appends output from one to other
+echo "hey" >> names.txt
+>Abhilash
+Abhiushek
+Aditya
+Alok
+hey
+
+
+h) >
+overrides
+echo "hey" > names.txt
+>hey
+
